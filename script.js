@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Inject the name safely
   h1.textContent = name;
   h1.setAttribute('aria-label', `Letter addressed to ${name}`);
+
+  localStorage.removeItem('visitorName');
+
 });
 
 // ---------- Hearts IIFE runs after the name prompt ----------
