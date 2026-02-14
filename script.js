@@ -1,12 +1,23 @@
-// Prompt for name on each visit (no saving)
-let name = prompt("Before you continue, what is your name?") || "My Queen";
+document.addEventListener('DOMContentLoaded', () => {
+  const h1 = document.querySelector('.letter h1');
+  if (!h1) return;
 
-// Select the H1 and inject name directly
-const h1 = document.querySelector(".letter h1");
-if (h1) {
+  // Check if a name already exists in localStorage
+  let name = localStorage.getItem('visitorName');
+
+  // If no name, prompt the user
+  if (!name) {
+    name = prompt("Before you continue, what is your name?");
+    name = (name && name.trim()) ? name.trim() : "My Queen";
+
+    // Save it to localStorage for future visits
+    localStorage.setItem('visitorName', name);
+  }
+
+  // Inject the name safely
   h1.textContent = name;
-}
-
+  h1.setAttribute('aria-label', `Letter addressed to ${name}`);
+});
 
 // ---------- Hearts IIFE runs after the name prompt ----------
 (() => {
