@@ -3,22 +3,26 @@
   --accent: #f3c88b;
   --love: #8B0000;
   --peace: #2E8B57;
-}
 
+  /* audio sizing & spacing */
+  --audio-height: 140px; /* audio container height */
+  --top-gap: 0px;        /* reduce gap to ~1cm */
+}
+/* reset box sizing */
 * { box-sizing: border-box; }
 
 html, body {
   margin: 0;
   padding: 0;
   height: auto;
-  overflow-x: hidden;  /* keep horizontal hidden */
-  overflow-y: auto;    /* allow vertical scroll */
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: "Cormorant Garamond", serif;
   color: var(--ink);
   background: #130707;
 }
 
-
+/* background flow + slides left largely intact but NO fade animation on slides */
 .color-flow {
   position: fixed;
   inset: -20%;
@@ -44,9 +48,9 @@ html, body {
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0;
+  opacity: 1;               /* keep visible, no fade */
   transform: scale(1.02);
-  animation: fade 24s infinite;
+  /* removed fade animation per request */
 }
 
 .slide.s1 {
@@ -54,7 +58,6 @@ html, body {
     radial-gradient(circle at 20% 20%, rgba(255, 214, 225, 0.25), transparent 55%),
     radial-gradient(circle at 80% 70%, rgba(255, 120, 160, 0.22), transparent 60%),
     linear-gradient(135deg, #3b0000, #8b001d 55%, #26040d);
-  animation-delay: 0s;
 }
 
 .slide.s2 {
@@ -62,7 +65,6 @@ html, body {
     radial-gradient(circle at 70% 25%, rgba(182, 255, 230, 0.22), transparent 55%),
     radial-gradient(circle at 15% 70%, rgba(80, 180, 140, 0.25), transparent 60%),
     linear-gradient(135deg, #061a12, #1f6a4a 55%, #0a1f18);
-  animation-delay: 8s;
 }
 
 .slide.s3 {
@@ -70,15 +72,21 @@ html, body {
     radial-gradient(circle at 60% 30%, rgba(255, 214, 225, 0.18), transparent 55%),
     radial-gradient(circle at 30% 75%, rgba(80, 180, 140, 0.2), transparent 60%),
     linear-gradient(135deg, #3b0000, #2e8b57 55%, #0a1f18);
-  animation-delay: 16s;
 }
 
-@keyframes fade {
-  0% { opacity: 0; transform: scale(1.02); }
-  10% { opacity: 1; }
-  35% { opacity: 1; transform: scale(1.05); }
-  50% { opacity: 0; }
-  100% { opacity: 0; }
+@keyframes colorFlow {
+  0% {
+    transform: translate3d(-4%, -3%, 0) scale(1);
+    filter: blur(26px) hue-rotate(0deg);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.05);
+    filter: blur(30px) hue-rotate(18deg);
+  }
+  100% {
+    transform: translate3d(-2%, 5%, 0) scale(1.08);
+    filter: blur(32px) hue-rotate(-8deg);
+  }
 }
 
 .overlay {
@@ -88,6 +96,7 @@ html, body {
   z-index: 1;
 }
 
+/* hearts */
 .hearts {
   position: fixed;
   inset: 0;
@@ -107,14 +116,15 @@ html, body {
   animation: floatUp var(--duration, 10s) linear forwards;
 }
 
+/* LETTER area */
+/* ensure a top margin so audio doesn't overlap the text */
 .letter-container {
   position: relative;
   max-width: 720px;
   margin: 0 auto;
   padding: 2rem;
-  margin-top: 20px; /* distance from top */
-  overflow: hidden;  /* critical: hides text that "escapes" */
-   transition: opacity 0.15s linear;
+  margin-top: 10px; /* <-- now ~1cm gap */
+  overflow: visible;
 }
 
 .letter {
@@ -122,59 +132,69 @@ html, body {
   z-index: 3;
   max-width: 720px;
   margin: 0 auto;
-  padding: clamp(22vh, 28vh, 32vh) 2rem 12vh;
+  padding: clamp(22vh, 28vh, 32vh) 2rem 12vh; /* reduce vertical padding to improve flow */
   text-align: center;
-  transition: opacity 0.15s linear;
+  /* removed any opacity/transition manipulations */
 }
 
+/* name / heading */
 h1 {
   font-size: clamp(2rem, 4vw, 2.9rem);
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.2rem;
   letter-spacing: 0.05em;
-  text-wrap: balance;
+  display: block;
+  width: 100%;
+  word-break: break-word; /* ensure long names wrap rather than overflow/clipping */
+  color: var(--accent);
 }
 
+/* body copy */
 p {
   font-size: clamp(1.05rem, 2.2vw, 1.25rem);
   line-height: 2;
   margin: 0 0 1.3rem;
-  text-wrap: pretty;
 }
 
+/* signature */
 .signature {
   margin-top: 2.5rem;
   font-style: italic;
   color: var(--accent);
 }
 
+/* AUDIO (sticky, always on top visually) */
 .audio {
-  position: fixed;
-  top: 1.2rem;
+  position: fixed; /* stays visible on top when reached, but is still in the flow */
+  top: 1rem;
   left: 50%;
-  right: auto;
   transform: translateX(-50%);
-  width: min(560px, 92vw);
+  width: 92vw;
   height: 140px;
   z-index: 4;
-  opacity: 0.9;
+  opacity: 0.95;
   border-radius: 18px;
   padding: 0.2rem;
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
+  display: block;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
+/* keep iframe filling the audio container */
 .audio iframe {
   width: 100%;
   height: 100%;
   border: 0;
-  border-radius: 10px;
+  border-radius: 12px;
+  display: block;
 }
 
+/* audio note lives inside the audio block visually under the iframe (small area) */
 .audio-note {
   position: fixed;
   left: 50%;
-  top: calc(1.2rem + 150px);
+  top: calc(1rem + 150px);
   transform: translateX(-50%);
   z-index: 4;
   font-family: "Space Grotesk", sans-serif;
@@ -184,44 +204,16 @@ p {
   text-align: center;
 }
 
-@media (max-width: 720px) {
-  .letter {
-    padding: clamp(24vh, 30vh, 36vh) 1.5rem 10vh;
-    margin-top: 180px; /* slightly less for small screens */
-  }
-
-  .audio {
-    width: min(92vw, 520px);
-    height: 130px;
-  }
-
-  .audio-note {
-    top: calc(1.2rem + 140px);
-    max-width: 80vw;
-  }
+/* footer */
+.valentine-footer {
+  text-align: center;
+  margin: 3rem 0 4rem;
+  color: var(--accent);
+  font-style: italic;
+  z-index: 3;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .slide { animation-duration: 60s; }
-  .color-flow { animation-duration: 30s; }
-  .heart { animation-duration: 18s; }
-}
-
-@keyframes colorFlow {
-  0% {
-    transform: translate3d(-4%, -3%, 0) scale(1);
-    filter: blur(26px) hue-rotate(0deg);
-  }
-  50% {
-    transform: translate3d(3%, 2%, 0) scale(1.05);
-    filter: blur(30px) hue-rotate(18deg);
-  }
-  100% {
-    transform: translate3d(-2%, 5%, 0) scale(1.08);
-    filter: blur(32px) hue-rotate(-8deg);
-  }
-}
-
+/* animations kept that are not 'fade' */
 @keyframes floatUp {
   0% {
     transform: translateY(0) translateX(0) scale(0.8);
@@ -233,5 +225,31 @@ p {
   100% {
     transform: translateY(-120vh) translateX(var(--drift, 0px)) scale(1.4);
     opacity: 0;
+  }
+}
+
+/* Large foldables / small laptops */
+@media (max-width: 1024px) {
+  .letter {
+    padding: clamp(20vh, 25vh, 30vh) 2rem 12vh;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 3.5vw, 2.7rem);
+  }
+
+  p {
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+  }
+
+  .audio {
+    width: 85vw;
+    height: 140px;
+  }
+
+  .audio-note {
+    top: calc(1rem + 140px);
+    font-size: 0.8rem;
+    max-width: 80vw;
   }
 }
