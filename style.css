@@ -112,7 +112,7 @@ html, body {
   max-width: 720px;
   margin: 0 auto;
   padding: 2rem;
-  margin-top: 200px; /* distance from top */
+  margin-top: 20px; /* distance from top */
   overflow: hidden;  /* critical: hides text that "escapes" */
    transition: opacity 0.15s linear;
 }
