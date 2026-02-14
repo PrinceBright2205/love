@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Space+Grotesk:wght@400;500&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="./style.css?v=1" />
+  <link rel="stylesheet" href="./style.css?v=2" />
 </head>
 <body>
   <div class="color-flow"></div>
@@ -23,31 +23,38 @@
   <div class="overlay"></div>
   <div class="hearts" aria-hidden="true"></div>
 
-<div class="letter-container">
-  <main class="letter">
-    <h1></h1>
-    <p>You did not arrive with thunder, no orchestra of vanity, no glitter rehearsed for applause, just a quiet “hey” that moved through my ribs like a key remembering its lock.</p>
-    <p>Your dark skin, rich as the first soil that ever held rain, carries the patience of the earth, that sacred brown kings once sailed for and empires bled to name yet could never describe.</p>
-    <p>You are not beautiful in the way mirrors gossip; you are beautiful the way night is, inevitable, vast, honest.</p>
-    <p>Your melanin drinks the sun and returns it as worship, a soft radiance resting upon cheekbones carved from ancestral hymns.</p>
-    <p>No artifice.No apology.</p>
-    <p>Just coils of midnight crowning a mind that thinks in constellations, and your eyes, twin eclipses where my logic went to die the moment you spoke.</p>
-    <p>Because it was never the word but the doorway it opened.</p>
-    <p>A simple “hey,” and suddenly my guarded heart forgot its discipline, my solitude betrayed its vows, and every wall I built stood still, ashamed of how easily you walked through.</p>
-    <p>You did not steal my heart, you summoned it.And it came willingly, kneeling at the altar of your natural grace.</p>
-    <p class="signature">-Ndumiso B. Mkhombe</p>
-</main>
-</div>
-
-  <div class="audio-note">FROM ME TO YOU.</div>
-  <div class="audio">
-   <iframe data-testid="embed-iframe" style="border-radius:12px" 
-   src="https://open.spotify.com/embed/track/6n3HGiq4v35D6eFOSwqYuo?utm_source=generator&theme=0"
-    width="100%" height="352" frameBorder="0" allowfullscreen="" 
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-   loading="lazy">
-  </iframe>
+  <!-- Audio player (sticky, sits on top but in flow) -->
+  <div class="audio" role="region" aria-label="Music player: Teenage Fever by Drake">
+    <iframe
+      data-testid="embed-iframe"
+      style="border-radius:12px"
+      src="https://open.spotify.com/embed/track/6n3HGiq4v35D6eFOSwqYuo?utm_source=generator&theme=0"
+      width="100%" height="100%" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"></iframe>
+    <div class="audio-note">
+      <strong>Teenage Fever — Drake</strong>
+      <div class="desc">A warm and mellow track: smooth R&B production, soft melodies, gentle nostalgia — perfect for this letter.</div>
+    </div>
   </div>
-  <script src="./script.js?v=1"></script>
+
+  <div class="letter-container">
+    <main class="letter">
+      <h1></h1>
+      <p>You did not arrive with thunder, no orchestra of vanity, no glitter rehearsed for applause, just a quiet “hey” that moved through my ribs like a key remembering its lock.</p>
+      <p>Your dark skin, rich as the first soil that ever held rain, carries the patience of the earth, that sacred brown kings once sailed for and empires bled to name yet could never describe.</p>
+      <p>You are not beautiful in the way mirrors gossip; you are beautiful the way night is, inevitable, vast, honest.</p>
+      <p>Your melanin drinks the sun and returns it as worship, a soft radiance resting upon cheekbones carved from ancestral hymns.</p>
+      <p>No artifice. No apology.</p>
+      <p>Just coils of midnight crowning a mind that thinks in constellations, and your eyes, twin eclipses where my logic went to die the moment you spoke.</p>
+      <p>Because it was never the word but the doorway it opened.</p>
+      <p>A simple “hey,” and suddenly my guarded heart forgot its discipline, my solitude betrayed its vows, and every wall I built stood still, ashamed of how easily you walked through.</p>
+      <p>You did not steal my heart, you summoned it. And it came willingly, kneeling at the altar of your natural grace.</p>
+      <p class="signature">- Ndumiso B. Mkhombe</p>
+    </main>
+  </div>
+
+  <footer class="valentine-footer">Happy Valentine's</footer>
+
+  <script src="./script.js?v=2"></script>
 </body>
 </html>
