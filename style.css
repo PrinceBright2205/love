@@ -168,7 +168,7 @@ p {
   top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 92vw;
+  width: 260px;
   height: 140px;
   z-index: 4;
   opacity: 0.95;
