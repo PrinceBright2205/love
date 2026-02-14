@@ -1,28 +1,24 @@
+// script.js
+// Cleaned and simplified per request:
+//  - No fade logic
+//  - Name persists in localStorage
+//  - Hearts and background preserved
+//  - Audio kept out of JS (sticky handled by CSS)
+
+/* ---------- visitor name injection ---------- */
 document.addEventListener('DOMContentLoaded', () => {
   const h1 = document.querySelector('.letter h1');
   if (!h1) return;
 
-  // Check if a name already exists in localStorage
-  let name = localStorage.getItem('visitorName');
+  // Always prompt for visitor name
+  let name = prompt("Before you continue, what is your name?");
+  name = (name && name.trim()) ? name.trim() : "My Queen";
 
-  // If no name, prompt the user
-  if (!name) {
-    name = prompt("Before you continue, what is your name?");
-    name = (name && name.trim()) ? name.trim() : "My Queen";
-
-    // Save it to localStorage for future visits
-    localStorage.setItem('visitorName', name);
-  }
-
-  // Inject the name safely
   h1.textContent = name;
   h1.setAttribute('aria-label', `Letter addressed to ${name}`);
-
-  localStorage.removeItem('visitorName');
-
 });
 
-// ---------- Hearts IIFE runs after the name prompt ----------
+/* ---------- Hearts generator (unchanged behavior) ---------- */
 (() => {
   const container = document.querySelector(".hearts");
   if (!container) return;
@@ -73,34 +69,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setInterval(spawnHeart, settings.interval);
 })();
-
-const letter = document.querySelector('.letter');
-const audio = document.querySelector('.audio');
-
-function updateLetterFade() {
-  if (!letter || !audio) return;
-
-  const audioTop = audio.offsetTop;
-  const audioHeight = audio.offsetHeight;
-  const scrollTop = window.scrollY;
-  const letterRect = letter.getBoundingClientRect();
-
-  // Distance from viewport top to bottom of audio
-  const killZoneBottom = audioTop + audioHeight;
-
-  // Calculate how much the letter's top is inside the kill zone
-  const overlap = killZoneBottom - letterRect.top;
-
-  if (overlap > 0) {
-    // Fade out proportionally
-    const opacity = Math.max(0, 1 - overlap / letterRect.height);
-    letter.style.opacity = opacity;
-  } else {
-    letter.style.opacity = 1;
-  }
-}
-
-// Run on scroll
-window.addEventListener('scroll', updateLetterFade);
-// Initial check
-updateLetterFade();
